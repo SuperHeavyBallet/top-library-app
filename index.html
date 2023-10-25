@@ -8,15 +8,33 @@
     <script src="javascript.js" defer></script>
 </head>
 <body>
+    
+    <h4 class="title">Your Book Collection</h4>
+
+    <div class="container">
     <div class="book-list" id="book-list">Book List
 
-        <div class="book-card">Harry Potter</div>
+        
     </div>
 
-    <input type="text" class="book-entry" id="book-entry" name="book-entry">
-    <label for="book-entry">Enter A New Book</label>
+    <form class="book-entry-form">
+    <h4>Enter A New Book:</h4>
+    <input type="text" class="book-entry name" id="book-entry-name" name="book-entry-name">
+    <label for="book-entry-name">Title</label>
 
-    <button type="submit" id="submit-book">Submit</button>
+    <input type="text" class="book-entry author" id="book-entry-author" name="book-entry-author">
+    <label for="book-entry-author">Author</label>
+
+    <input type="text" class="book-entry number-of-pages" id="book-entry-num-of-pages" name="book-entry-num-of-pages">
+    <label for="book-entry-num-of-pages">Number of Pages</label>
+
+    <input type="text" class="book-entry has-been-read" id="book-entry-has-been-read" name="book-entry-has-been-read">
+    <label for="book-entry-has-been-read">Has Been Read?</label>
+
+    <button type="button" id="submit-book">Submit</button>
+</form>
+
+</div>
     
 </body>
 </html>
