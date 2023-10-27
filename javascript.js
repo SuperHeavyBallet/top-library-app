@@ -5,7 +5,6 @@ function book(title, author, numberOfPages, hasBeenRead) {
     this.author = 'Author: ' + author;
     this.numberOfPages = 'Number of Pages: ' +  numberOfPages;
     this.hasBeenRead = 'Has Been Read?: ' + hasBeenRead;
-
 }
 
 myLibrary[0] = new book('Harry Potter', 'J.K Rowling', '365', 'Yes');
@@ -17,12 +16,13 @@ const newBookInputAuthor = document.querySelector('#book-entry-author');
 const newBookInputNumberOfPages = document.querySelector('#book-entry-num-of-pages');
 const newBookInputHasBeenRead = document.querySelector('#book-entry-has-been-read')
 
+
+
 const submitBookButton = document.querySelector("#submit-book");
 
-
+let removeBookButton = document.querySelectorAll('#remove-button');
 
 UpdateBookList();
-
 
 
 
@@ -30,28 +30,23 @@ UpdateBookList();
 submitBookButton.addEventListener('click', (e) => {
 
     const newBook = new book(newBookInputName.value, newBookInputAuthor.value, newBookInputNumberOfPages.value, newBookInputHasBeenRead.value);
-    myLibrary.push(newBook);
+    
     newBookInputName.value = '';
     newBookInputAuthor.value = '';
     newBookInputNumberOfPages.value ='';
     newBookInputHasBeenRead.value = '';
 
-    console.log(myLibrary);
+    myLibrary.push(newBook);
     
     UpdateBookList();
     
 })
 
-function ClearOldBookList(parent){
-    while (parent.firstChild){
-        parent.removeChild(parent.firstChild);
-    }
-
-}
 
 function UpdateBookList(){
 
     ClearOldBookList(bookList);
+
 
     for (let i = 0; i < myLibrary.length; i++)
     {
@@ -91,29 +86,59 @@ function UpdateBookList(){
             newDiv.classList.add('book-card');
             newDiv.setAttribute('data-index', i);
 
+
+
             bookList.appendChild(newDiv);
+
+            
+            let removeBookButton = document.querySelectorAll('#remove-button');
+            
+
+           
+
+            removeBookButton[i].addEventListener('click', (function(index) {
+                return function() {
+                    console.log("YOU CLICKED! " + index);
+                    RemoveBook(index);
+                };
+            })(i));        
+            
+
+            
+
+            
     }
 
-    let removeBookButton = document.querySelectorAll('#remove-button');
-
-
-    for(let i = 0; i < removeBookButton.length; i++)
-    {
-
-        removeBookButton[i].addEventListener('click', () => {
-
+   
     
 
-        removeBookButton[i].parentElement.remove();
-        let spliced = myLibrary.splice(i,1);
-        myLibrary = spliced;
+    
+}
+
+function ClearOldBookList(parent){
+    while (parent.firstChild){
+        parent.removeChild(parent.firstChild);
+    }
+}
+
+
+function RemoveBook(indexOfBook)
+{
+    const removedElement = document.querySelector(`[data-index="${indexOfBook}"]`);
+    
+    if (removedElement){
+        removedElement.remove();
+        myLibrary.splice(indexOfBook, 1);
         console.log(myLibrary);
-    
-    })
+        UpdateBookList();
+    }
+}
 
-    
-}
-}
+
+
+
+
+
 
 
 
