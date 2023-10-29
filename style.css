@@ -30,6 +30,7 @@ body > .title{
     display: flex;
     flex-direction: row;
     justify-content: center;
+    
 }
 
 .book-list{
@@ -40,6 +41,8 @@ body > .title{
     min-height: 20vh;
     padding: 2vh;
     text-align: center;
+    margin-bottom: 1vh;
+    
 }
 
 .book-card{
@@ -66,9 +69,11 @@ body > .title{
     text-align: center;
     width: fit-content;
     text-justify: end;
+    font-size: x-small;
     outline: none;
     border: none;
     margin-left: auto;
+    margin-top: 1vh;
     border-radius: 5px;
     box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.253);
     padding: 0.8vh 1vw;
@@ -81,4 +86,12 @@ body > .title{
     text-align: center;
     background-color: wheat;
     padding: 2vh;
+}
+
+.green{
+    color: green;
+}
+
+.red{
+    color: red;
 }

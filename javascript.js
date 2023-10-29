@@ -4,17 +4,23 @@ function book(title, author, numberOfPages, hasBeenRead) {
     this.title = 'Title: ' + title;
     this.author = 'Author: ' + author;
     this.numberOfPages = 'Number of Pages: ' +  numberOfPages;
-    this.hasBeenRead = 'Has Been Read?: ' + hasBeenRead;
+    //this.hasBeenRead = 'Has Been Read?: ' + hasBeenRead;
+    this.hasBeenRead = hasBeenRead;
 }
 
-myLibrary[0] = new book('Harry Potter', 'J.K Rowling', '365', 'Yes');
-myLibrary[1] = new book('The Fellowship of The Ring', 'J.R.R. Tolkein', '999', 'Yes');
+
 
 const bookList = document.querySelector("#book-list");
 const newBookInputName = document.querySelector("#book-entry-name");
 const newBookInputAuthor = document.querySelector('#book-entry-author');
 const newBookInputNumberOfPages = document.querySelector('#book-entry-num-of-pages');
-const newBookInputHasBeenRead = document.querySelector('#book-entry-has-been-read')
+const newBookInputHasBeenRead = document.querySelectorAll('.book-entry-has-been-read');
+let newBookhasBeenRead;
+
+
+myLibrary[0] = new book('Harry Potter', 'J.K Rowling', '365', false);
+myLibrary[1] = new book('The Fellowship of The Ring', 'J.R.R. Tolkein', '999', true);
+
 
 
 
@@ -24,17 +30,50 @@ let removeBookButton = document.querySelectorAll('#remove-button');
 
 UpdateBookList();
 
+function displayRadioValue(){
+    let ele = document.querySelectorAll('.book-entry-has-been-read');
 
+    for (let i = 0; i < ele.length; i++){
+        if (ele[i].checked){
+
+            if (i == 0)
+            {
+                newBookhasBeenRead = true;
+                
+            }
+            else if (i == 1)
+            {
+                newBookhasBeenRead = false;
+                
+            }
+
+            
+            
+        }
+    }
+
+    console.log(newBookhasBeenRead);
+         return
+    
+
+}
 
 
 submitBookButton.addEventListener('click', (e) => {
 
-    const newBook = new book(newBookInputName.value, newBookInputAuthor.value, newBookInputNumberOfPages.value, newBookInputHasBeenRead.value);
+   displayRadioValue();
+
+
+    const newBook = new book(newBookInputName.value, newBookInputAuthor.value, newBookInputNumberOfPages.value, newBookhasBeenRead);
     
+    //These function to clear the input fields after submitting
     newBookInputName.value = '';
     newBookInputAuthor.value = '';
     newBookInputNumberOfPages.value ='';
-    newBookInputHasBeenRead.value = '';
+ 
+    
+
+    
 
     myLibrary.push(newBook);
     
@@ -85,6 +124,15 @@ function UpdateBookList(){
             newDivCardNumber.classList.add('card-number');
             newDiv.classList.add('book-card');
             newDiv.setAttribute('data-index', i);
+
+            if (myLibrary[i].hasBeenRead == true)
+            {
+                newDivRead.setAttribute('class', 'green');
+            }
+            else if (myLibrary[i].hasBeenRead== false)
+            {
+                newDivRead.setAttribute('class', 'red');
+            }
 
 
 

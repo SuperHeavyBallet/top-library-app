@@ -19,18 +19,32 @@
 
     <form class="book-entry-form">
     <h4>Enter A New Book:</h4>
-    <input type="text" class="book-entry name" id="book-entry-name" name="book-entry-name">
     <label for="book-entry-name">Title</label>
+    <input type="text" class="book-entry name" id="book-entry-name" name="book-entry-name">
+    
 
-    <input type="text" class="book-entry author" id="book-entry-author" name="book-entry-author">
     <label for="book-entry-author">Author</label>
+    <input type="text" class="book-entry author" id="book-entry-author" name="book-entry-author">
+    
 
-    <input type="text" class="book-entry number-of-pages" id="book-entry-num-of-pages" name="book-entry-num-of-pages">
     <label for="book-entry-num-of-pages">Number of Pages</label>
+    <input type="text" class="book-entry number-of-pages" id="book-entry-num-of-pages" name="book-entry-num-of-pages">
+    
 
-    <input type="text" class="book-entry has-been-read" id="book-entry-has-been-read" name="book-entry-has-been-read">
+    <!--
+    <input type="radio" class="book-entry has-been-read" id="book-entry-has-been-read" name="book-entry-has-been-read">
     <label for="book-entry-has-been-read">Has Been Read?</label>
+        -->
+    <legend>Have You Read This Book?</legend>
+    <div>
+    <label for="book-entry-has-been-read-yes">Yes</label>
+    <input type="radio" class="book-entry-has-been-read" id="book-entry-has-been-read-yes" name="book-entry-has-been-read" value="yes">
 
+    <label for="book-entry-has-been-read-no" >No</label>
+    <input type="radio" class="book-entry-has-been-read" id="book-entry-has-been-read-no" name="book-entry-has-been-read" value="no">
+
+    </div>
+    
     <button type="button" id="submit-book">Submit</button>
 </form>
 
