@@ -18,6 +18,7 @@ const newBookInputHasBeenRead = document.querySelectorAll('.book-entry-has-been-
 let newBookhasBeenRead;
 
 
+
 myLibrary[0] = new book('Harry Potter', 'J.K Rowling', '365', false);
 myLibrary[1] = new book('The Fellowship of The Ring', 'J.R.R. Tolkein', '999', true);
 
@@ -25,6 +26,8 @@ myLibrary[1] = new book('The Fellowship of The Ring', 'J.R.R. Tolkein', '999', t
 
 
 const submitBookButton = document.querySelector("#submit-book");
+
+let readUnreadToggle = document.querySelectorAll('.read-unread-toggle');
 
 let removeBookButton = document.querySelectorAll('#remove-button');
 
@@ -52,7 +55,6 @@ function displayRadioValue(){
         }
     }
 
-    console.log(newBookhasBeenRead);
          return
     
 
@@ -64,6 +66,8 @@ submitBookButton.addEventListener('click', (e) => {
    displayRadioValue();
 
 
+   if ( newBookInputName.value != '' && newBookInputAuthor.value != '' && newBookInputNumberOfPages != '')
+   {
     const newBook = new book(newBookInputName.value, newBookInputAuthor.value, newBookInputNumberOfPages.value, newBookhasBeenRead);
     
     //These function to clear the input fields after submitting
@@ -78,8 +82,17 @@ submitBookButton.addEventListener('click', (e) => {
     myLibrary.push(newBook);
     
     UpdateBookList();
+   }
+   else{
+    alert("Please Fill in all Fields");
+   }
+    
     
 })
+
+
+
+
 
 
 function UpdateBookList(){
@@ -93,16 +106,19 @@ function UpdateBookList(){
             const newDivTitle = document.createElement("div");
             const newDivAuthor = document.createElement("div");
             const newDivPages = document.createElement("div");
-            const newDivRead = document.createElement("div");
+            //const newDivRead = document.createElement("div");
             const newDivRemoveButton = document.createElement('button');
             const newDivCardNumber = document.createElement('div');
+            const newDivReadToggle = document.createElement('button');
 
             newDiv.appendChild(newDivCardNumber);
             newDiv.appendChild(newDivTitle);
             newDiv.appendChild(newDivAuthor);
             newDiv.appendChild(newDivPages);
-            newDiv.appendChild(newDivRead);
+            //newDiv.appendChild(newDivRead);
+            newDiv.appendChild(newDivReadToggle);
             newDiv.appendChild(newDivRemoveButton);
+            
             
 
             newDivRemoveButton.setAttribute('type', 'button');
@@ -110,6 +126,7 @@ function UpdateBookList(){
             newDivRemoveButton.setAttribute('id', 'remove-button');
             newDivRemoveButton.textContent = ("Remove This Book?");
             newDivCardNumber.textContent = ('Book Number: ' + i);
+            newDivReadToggle.textContent = ('Not Read');
 
             const newContentTitle = document.createTextNode(myLibrary[i].title);
             const newContentAuthor = document.createTextNode(myLibrary[i].author);
@@ -119,24 +136,29 @@ function UpdateBookList(){
             newDivTitle.appendChild(newContentTitle);
             newDivAuthor.appendChild(newContentAuthor);
             newDivPages.appendChild(newContentPages);
-            newDivRead.appendChild(newContentRead);
+            //newDivRead.appendChild(newContentRead);
 
             newDivCardNumber.classList.add('card-number');
             newDiv.classList.add('book-card');
             newDiv.setAttribute('data-index', i);
+            newDivReadToggle.classList.add('read-unread-toggle');
 
             if (myLibrary[i].hasBeenRead == true)
             {
-                newDivRead.setAttribute('class', 'green');
+                newDivReadToggle.setAttribute('class', 'green');
             }
             else if (myLibrary[i].hasBeenRead== false)
             {
-                newDivRead.setAttribute('class', 'red');
+                newDivReadToggle.setAttribute('class', 'red');
             }
 
 
 
             bookList.appendChild(newDiv);
+
+            
+                    
+        
 
             
             let removeBookButton = document.querySelectorAll('#remove-button');
@@ -146,7 +168,6 @@ function UpdateBookList(){
 
             removeBookButton[i].addEventListener('click', (function(index) {
                 return function() {
-                    console.log("YOU CLICKED! " + index);
                     RemoveBook(index);
                 };
             })(i));        
