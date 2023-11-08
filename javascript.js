@@ -1,12 +1,15 @@
-let myLibrary = [];
 
-function book(title, author, numberOfPages, hasBeenRead) {
-    this.title = 'Title: ' + title;
-    this.author = 'Author: ' + author;
-    this.numberOfPages = 'Number of Pages: ' +  numberOfPages;
-    //this.hasBeenRead = 'Has Been Read?: ' + hasBeenRead;
-    this.hasBeenRead = hasBeenRead;
+class Book{
+    constructor(title, author, numberOfPages, hasBeenRead){
+        this.title = title;
+        this.author = author;
+        this.numberOfPages = numberOfPages;
+        this.hasBeenRead = hasBeenRead;
+    }
+
 }
+
+const myLibrary = [];
 
 
 
@@ -19,8 +22,8 @@ let newBookhasBeenRead;
 
 
 
-myLibrary[0] = new book('Harry Potter', 'J.K Rowling', '365', false);
-myLibrary[1] = new book('The Fellowship of The Ring', 'J.R.R. Tolkein', '999', true);
+myLibrary[0] = new Book('Harry Potter', 'J.K Rowling', '365', false);
+myLibrary[1] = new Book('The Fellowship of The Ring', 'J.R.R. Tolkein', '999', true);
 
 
 
@@ -34,64 +37,57 @@ let removeBookButton = document.querySelectorAll('#remove-button');
 UpdateBookList();
 
 function displayRadioValue(){
-    let ele = document.querySelectorAll('.book-entry-has-been-read');
 
-    for (let i = 0; i < ele.length; i++){
-        if (ele[i].checked){
+    let hasBeenRead = document.querySelectorAll('.book-entry-has-been-read');
+
+    for (let i = 0; i < hasBeenRead.length; i++){
+        if (hasBeenRead[i].checked){
 
             if (i == 0)
             {
-                newBookhasBeenRead = true;
-                
+                newBookhasBeenRead = true;                
             }
             else if (i == 1)
             {
-                newBookhasBeenRead = false;
-                
+                newBookhasBeenRead = false;             
             }
-
-            
-            
         }
     }
-
          return
     
 
 }
 
 
-submitBookButton.addEventListener('click', (e) => {
+submitBookButton.addEventListener('click', () => {
 
    displayRadioValue();
 
-
-   if ( newBookInputName.value != '' && newBookInputAuthor.value != '' && newBookInputNumberOfPages != '')
+    //Validate Text in Entry Field
+   if (newBookInputName.value != '' && newBookInputAuthor.value != '' && newBookInputNumberOfPages != '')
    {
-    const newBook = new book(newBookInputName.value, newBookInputAuthor.value, newBookInputNumberOfPages.value, newBookhasBeenRead);
-    
-    //These function to clear the input fields after submitting
-    newBookInputName.value = '';
-    newBookInputAuthor.value = '';
-    newBookInputNumberOfPages.value ='';
- 
-    
+        const newBook = new Book(newBookInputName.value, newBookInputAuthor.value, newBookInputNumberOfPages.value, newBookhasBeenRead);
+        
+        //These function to clear the input fields after submitting
+        newBookInputName.value = '';
+        newBookInputAuthor.value = '';
+        newBookInputNumberOfPages.value ='';
 
-    
-
-    myLibrary.push(newBook);
-    
-    UpdateBookList();
+        myLibrary.push(newBook);
+        UpdateBookList();
    }
    else{
     alert("Please Fill in all Fields");
-   }
-    
-    
+   }  
 })
 
-
-
+// Remove Book button event assignment
+bookList.addEventListener('click', (e) =>{
+    if (e.target.classList.contains('remove-button')) {
+        const index = e.target.parentNode.dataset.index;
+        RemoveBook(index);
+    }
+})
 
 
 
@@ -99,14 +95,19 @@ function UpdateBookList(){
 
     ClearOldBookList(bookList);
 
+    myLibrary.forEach((book, index) => {
+        const newDiv = createBookElement(book, index);
+        bookList.appendChild(newDiv);
+    });
+}
 
-    for (let i = 0; i < myLibrary.length; i++)
-    {
+
+function createBookElement(book, index) {
+
             const newDiv = document.createElement("div");
             const newDivTitle = document.createElement("div");
             const newDivAuthor = document.createElement("div");
             const newDivPages = document.createElement("div");
-            //const newDivRead = document.createElement("div");
             const newDivRemoveButton = document.createElement('button');
             const newDivCardNumber = document.createElement('div');
             const newDivReadToggle = document.createElement('button');
@@ -115,74 +116,44 @@ function UpdateBookList(){
             newDiv.appendChild(newDivTitle);
             newDiv.appendChild(newDivAuthor);
             newDiv.appendChild(newDivPages);
-            //newDiv.appendChild(newDivRead);
             newDiv.appendChild(newDivReadToggle);
             newDiv.appendChild(newDivRemoveButton);
             
-            
-
             newDivRemoveButton.setAttribute('type', 'button');
             newDivRemoveButton.setAttribute('class', 'remove-button');
             newDivRemoveButton.setAttribute('id', 'remove-button');
             newDivRemoveButton.textContent = ("Remove This Book?");
-            newDivCardNumber.textContent = ('Book Number: ' + i);
-            newDivReadToggle.textContent = ('Not Read');
+            newDivCardNumber.textContent = ('Book Number: ' + index);
+            
 
-            const newContentTitle = document.createTextNode(myLibrary[i].title);
-            const newContentAuthor = document.createTextNode(myLibrary[i].author);
-            const newContentPages = document.createTextNode(myLibrary[i].numberOfPages);
-            const newContentRead = document.createTextNode(myLibrary[i].hasBeenRead);
+            const newContentTitle = document.createTextNode(myLibrary[index].title);
+            const newContentAuthor = document.createTextNode(myLibrary[index].author);
+            const newContentPages = document.createTextNode(myLibrary[index].numberOfPages);
+            
             
             newDivTitle.appendChild(newContentTitle);
             newDivAuthor.appendChild(newContentAuthor);
             newDivPages.appendChild(newContentPages);
-            //newDivRead.appendChild(newContentRead);
 
             newDivCardNumber.classList.add('card-number');
             newDiv.classList.add('book-card');
-            newDiv.setAttribute('data-index', i);
+            newDiv.setAttribute('data-index', index);
             newDivReadToggle.classList.add('read-unread-toggle');
 
-            if (myLibrary[i].hasBeenRead == true)
+            if (myLibrary[index].hasBeenRead == true)
             {
                 newDivReadToggle.setAttribute('class', 'green');
+                newDivReadToggle.textContent = ('Has Been Read');
             }
-            else if (myLibrary[i].hasBeenRead== false)
+            else if (myLibrary[index].hasBeenRead== false)
             {
                 newDivReadToggle.setAttribute('class', 'red');
+                newDivReadToggle.textContent = ('Not Read');
             }
 
-
-
-            bookList.appendChild(newDiv);
-
-            
-                    
-        
-
-            
-            let removeBookButton = document.querySelectorAll('#remove-button');
-            
-
-           
-
-            removeBookButton[i].addEventListener('click', (function(index) {
-                return function() {
-                    RemoveBook(index);
-                };
-            })(i));        
-            
-
-            
-
-            
-    }
-
-   
-    
-
-    
+            return newDiv;    
 }
+
 
 function ClearOldBookList(parent){
     while (parent.firstChild){
@@ -193,14 +164,8 @@ function ClearOldBookList(parent){
 
 function RemoveBook(indexOfBook)
 {
-    const removedElement = document.querySelector(`[data-index="${indexOfBook}"]`);
-    
-    if (removedElement){
-        removedElement.remove();
-        myLibrary.splice(indexOfBook, 1);
-        console.log(myLibrary);
-        UpdateBookList();
-    }
+    myLibrary.splice(indexOfBook, 1);
+    UpdateBookList();
 }
 
 

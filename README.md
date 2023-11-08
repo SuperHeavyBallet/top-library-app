@@ -13,3 +13,27 @@ Then, the function will loop along the `myLibrary` array and create a new div el
 8. The `Submit Button` has an event attached, that on clicking will read the value from the `newBookInput` field and add that string to the array as a new element.
 Then, it clears the `newBookInput` field to prepare for the next input and prevent repetition.
 9. Then the `UpdateBookList` > `ClearOldBookList` > Create New divs for each element of the array loop will continue.
+
+
+NEW
+
+1. Declare Empty `myLibrary` array to hold all book objects.
+2. Create template book object.
+3. Add starter book objects to `myLibrary`.
+4. Declare html elements to reference.
+
+5. `UpdateBookList()` to make sure the starting array/display is clear
+
+6. `ClearOldBookList` takes the current `bookList` (the HTML element #book-list which contains the list elements) and uses the function to remove each first child of that parent element until none remain, removing all previous html book references.
+
+7. Loops over the current `myLibrary` array and creates a new html element for each array element.
+- Declares each required div for the card
+- `appendChild` each div to the parent div
+- Adds the attributes and text content of each div
+- Creates relevent `Text Nodes` for each of the book object's text values and fills them with the relevant text.
+- Appends these nodes to the relevent parent divs.
+- Adds the `card-number` class to the card number div
+- Adds the `book-card` class to the parent div
+- Sets the `data-index` of the parent div to `i`
+-Appends this new book container to the `bookList` container
+
