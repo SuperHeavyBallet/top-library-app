@@ -17,18 +17,36 @@
         
     </div>
 
-    <form class="book-entry-form">
+    <form class="book-entry-form" >
     <h4>Enter A New Book:</h4>
+
     <label for="book-entry-name">Title</label>
-    <input type="text" class="book-entry name" id="book-entry-name" name="book-entry-name" required>
+    <input 
+      type="text" 
+      class="book-entry name" 
+      id="book-entry-name" 
+      name="book-entry-name" 
+      required>
     
 
     <label for="book-entry-author">Author</label>
-    <input type="text" class="book-entry author" id="book-entry-author" name="book-entry-author" required>
+    <input 
+      type="text" 
+      class="book-entry author" 
+      id="book-entry-author" 
+      name="book-entry-author" 
+      required>
     
 
     <label for="book-entry-num-of-pages">Number of Pages</label>
-    <input type="text" class="book-entry number-of-pages" id="book-entry-num-of-pages" name="book-entry-num-of-pages" required>
+    <input 
+      type="number"
+      class="book-entry number-of-pages" 
+      id="book-entry-num-of-pages" 
+      name="book-entry-num-of-pages" 
+      min="1"
+      max="9999"
+      required>
     
 
     <legend>Have You Read This Book?</legend>

@@ -16,7 +16,11 @@ const myLibrary = [];
 const bookList = document.querySelector("#book-list");
 const newBookInputName = document.querySelector("#book-entry-name");
 const newBookInputAuthor = document.querySelector('#book-entry-author');
+
+
 const newBookInputNumberOfPages = document.querySelector('#book-entry-num-of-pages');
+
+
 const newBookInputHasBeenRead = document.querySelectorAll('.book-entry-has-been-read');
 let newBookhasBeenRead;
 
@@ -62,12 +66,26 @@ function displayRadioValue(){
 submitBookButton.addEventListener('click', () => {
 
    displayRadioValue();
+   
+   // Here should probably be where the validation via the JS API should go
 
-    //Validate Text in Entry Field
-   if (newBookInputName.value != '' && newBookInputAuthor.value != '' && newBookInputNumberOfPages != '')
-   {
-        const newBook = new Book(newBookInputName.value, newBookInputAuthor.value, newBookInputNumberOfPages.value, newBookhasBeenRead);
-        
+if (newBookInputName.value.trim() !== '' &&
+    newBookInputAuthor.value.trim() !== '' &&
+    newBookInputNumberOfPages.value.trim() !== ''
+    )
+    {
+
+        const newBook = new Book(
+            newBookInputName.value, 
+            newBookInputAuthor.value, 
+            newBookInputNumberOfPages.value, 
+            newBookhasBeenRead
+            );
+
+            const inputNumberOfPages = document.querySelector('#book-entry-num-of-pages');
+
+
+
         //These function to clear the input fields after submitting
         newBookInputName.value = '';
         newBookInputAuthor.value = '';
